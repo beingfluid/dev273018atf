@@ -35,3 +35,51 @@ jobs:
           snowUsername: ${{ secrets.NOW_USERNAME }}
           snowPassword: ${{ secrets.NOW_PASSWORD }}
           snowInstallInstance: ${{ secrets.NOW_DEV_INSTANCE }}
+
+  merge_job:
+    needs: build
+    name: Deploy package
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Publish to Store
+      id: sncicd-publish-app
+      uses: ServiceNow/sncicd-publish-app@1.2.0
+      with:
+        versionFormat: detect
+      env:
+        snowUsername: ${{ secrets.NOW_USERNAME }}
+        snowPassword: ${{ secrets.NOW_PASSWORD }}
+        snowSourceInstance: ${{ secrets.NOW_DEV_INSTANCE }}
+        appSysID: ${{ secrets.APP_SYS_ID }}
+          
+    - name: Create Tag in repository
+      if: ${{ success() && steps.sncicd-publish-app.outputs.newVersion }}
+      uses: tvdias/github-tagger@v0.0.2
+      with:
+        repo-token: ${{ github.token }}
+        tag: "${{ steps.sncicd-publish-app.outputs.newVersion }}"
+
+    - name: Install to PROD
+      if: ${{ success() && steps.sncicd-publish-app.outputs.newVersion }}
+      uses: ServiceNow/sncicd-install-app@1.0.0
+      with:
+        version: ${{ steps.sncicd-publish-app.outputs.newVersion }}
+      env:
+        snowUsername: ${{ secrets.NOW_USERNAME }}
+        snowPassword: ${{ secrets.NOW_PASSWORD }}
+        snowInstallInstance: ${{ secrets.NOW_TEST_INSTANCE }}
+        appSysID: ${{ secrets.APP_SYS_ID }}
+        appScope: ${{ secrets.APP_SCOPE }}
+
+    - name: Run Tests on Test
+        id: atf_test_test
+        uses: ServiceNow/sncicd-tests-run@1.0.0
+        with:
+          testSuiteSysId: ${{ secrets.TEST_SUITE_ID }}
+        env:
+          snowUsername: ${{ secrets.NOW_USERNAME }}
+          snowPassword: ${{ secrets.NOW_PASSWORD }}
+          snowInstallInstance: ${{ secrets.NOW_TEST_INSTANCE }}

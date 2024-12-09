@@ -5,16 +5,15 @@
         <api_name>x_1515419_dev27301.Feature_091224</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description/>
-        <mobile_callable>false</mobile_callable>
+        <description>Test</description>
         <name>Feature_091224</name>
-        <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var Feature_091224 = Class.create();
 Feature_091224.prototype = {
-    initialize: function() {
-    },
-	sayHello: function() {
-		return "Hello!";
+
+    initialize: function() {},
+
+    sayHello: function() {
+        return "Hello!";
     },
 
     type: 'Feature_091224'
@@ -23,24 +22,13 @@ Feature_091224.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-12-09 17:07:06</sys_created_on>
         <sys_id>45b0e9be8356d210a7586260ceaad3eb</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>Feature_091224</sys_name>
         <sys_package display_value="dev273018atf" source="x_1515419_dev27301">039d59368356d210a7586260ceaad317</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="dev273018atf">039d59368356d210a7586260ceaad317</sys_scope>
         <sys_update_name>sys_script_include_45b0e9be8356d210a7586260ceaad3eb</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-12-09 17:07:06</sys_updated_on>
+        <sys_updated_on>2024-12-09 18:08:20</sys_updated_on>
     </sys_script_include>
-    <sys_es_latest_script action="INSERT_OR_UPDATE">
-        <id>45b0e9be8356d210a7586260ceaad3eb</id>
-        <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-12-09 17:07:04</sys_created_on>
-        <sys_id>c2f0a57e8356d210a7586260ceaad390</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-12-09 17:07:04</sys_updated_on>
-        <table>sys_script_include</table>
-        <use_es_latest>true</use_es_latest>
-    </sys_es_latest_script>
 </record_update>
